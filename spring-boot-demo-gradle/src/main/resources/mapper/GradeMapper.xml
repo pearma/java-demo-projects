@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.spdb.daas.demo.dao.GradeDao">
+    <sql id="columns">
+        id,student_id,grade
+    </sql>
+
+    <resultMap type="com.spdb.daas.demo.entity.Grade" id="grademap">
+        <id column="id" property="id"/>
+        <result column="student_id" property="studentID"/>
+        <result column="grade" property="grade"/>
+    </resultMap>
+
+<!-- 演示resultmap的用法-->
+    <select id="queryGradeByStudentID" parameterType="int" resultMap="grademap">
+        select * from grade
+         where id = #{id}
+    </select>
+
+    <select id="queryByStudentGrade" parameterType="int" resultType="com.spdb.daas.demo.entity.Grade">
+        select <include refid="columns"> </include> from grade
+         where grade = #{grade}
+    </select>
+</mapper>
