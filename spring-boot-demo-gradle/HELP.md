@@ -1,26 +1,29 @@
-# Getting Started
+# 项目介绍
 
-### Reference Documentation
-For further reference, please consider the following sections:
+### 项目功能
+项目的主要功能包括以下内容
 
-* [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.4.5/gradle-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.4.5/gradle-plugin/reference/html/#build-image)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.4.5/reference/htmlsingle/#boot-features-developing-web-applications)
-* [MyBatis Framework](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)
-* [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/2.4.5/reference/htmlsingle/#production-ready)
+* 实现了对数据库的连接，演示使用的数据库是h2内存数据库，支持数据初始化，和数据插入
+* 通过mybatis对数据进行访问，实现了数据查询功能
+* 提供了controller服务，支持通过http get对数据进行查询
+* 提供了关于多线程的演示代码，主要通过springboot的线程池管理机制和@Async注解来实现多线程功能的实现。
+* 完成了部分测试代码的编写，主要是实现了集成测试的测试代码编写
 
-### Guides
-The following guides illustrate how to use some features concretely:
+### 使用方法
+通过一下命令可以体验本项目的功能:
 
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
-* [MyBatis Quick Start](https://github.com/mybatis/spring-boot-starter/wiki/Quick-Start)
-* [Building a RESTful Web Service with Spring Boot Actuator](https://spring.io/guides/gs/actuator-service/)
+* 运行本程序
+```bash
+    > gradle bootRun
+```
 
-### Additional Links
-These additional references should also help you:
-
-* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
+* 查询功能
+```bash
+    > curl http://localhost:8080/query/studentid?userid=1
+    > curl http://localhost:8080/query/grade?grade=20
+```
+* 多线程演示
+```bash
+    > curl http://localhost:8080/query/mt
+```
 
