@@ -27,6 +27,8 @@ hs_err_pid*
 .vscode/
 .settings/
 .project
+.factorypath
+*.iml
 
 # idea generated paths
 .idea/
@@ -37,4 +39,6 @@ gradle/
 build/
 gradlew
 
-
+# maven generated paths
+target/
+.mvn/
