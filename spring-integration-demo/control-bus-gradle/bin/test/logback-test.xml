@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <include resource="org/springframework/boot/logging/logback/base.xml" />
-    <logger name="org.springframework" level="OFF"/>
+    <include resource="/org/springframework/boot/logging/logback/base.xml"/>
+     <!-- Stop output INFO at start -->
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/logback/log/test.log</file>
+	    <encoder>
+    	   <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+        <!-- 
+        通过rollingPolicy设置日志滚动的策略，这是使用按照时间滚动
+        fileNamePattern属性设置滚动生成文件的格式,这里设置的精确到天，也就是按照天滚动，如果时间设置精确到秒，就按秒来滚动
+        maxHistory属性设定最大的文件数，比如按天滚动，这里设置了30天，在第31天日志生成的时候，第一天的日志就会被删掉
+        -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/logback/log/test-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="FILE"/>
+    </root>
+    <logger name="com.pear.controlbusdemo" level="INFO">
+        <appender-ref ref="STDOUT"/>  
+     </logger>
+
 </configuration>

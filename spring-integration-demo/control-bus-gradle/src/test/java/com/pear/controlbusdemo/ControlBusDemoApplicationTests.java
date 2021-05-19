@@ -1,6 +1,7 @@
 package com.pear.controlbusdemo;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.messaging.MessageChannel;
@@ -10,18 +11,18 @@ import org.springframework.test.context.ActiveProfiles;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@ActiveProfiles("test")
+// @SpringBootTest
+// @ActiveProfiles("test")
 public class ControlBusDemoApplicationTests {
 	/*
-	@BeforeAll
-	static void setup()
-	{
-		LoggingSystem.get(ClassLoader.getSystemClassLoader()).setLogLevel(Logger.ROOT_LOGGER_NAME, LogLevel.INFO);
-		log.info("@BeforeAll - executes once before all test methods in this class");
-	}
-	*/
+	 * @BeforeAll static void setup() {
+	 * LoggingSystem.get(ClassLoader.getSystemClassLoader()).setLogLevel(Logger.
+	 * ROOT_LOGGER_NAME, LogLevel.INFO);
+	 * log.info("@BeforeAll - executes once before all test methods in this class");
+	 * }
+	 */
 	@Test
-	public void demoControlBus(){
+	public void demoControlBus() {
 		ConfigurableApplicationContext ac = new ClassPathXmlApplicationContext(
 				"/META-INF/spring/integration/ControlBus.xml");
 		MessageChannel controlChannel = ac.getBean("controlChannel", MessageChannel.class);

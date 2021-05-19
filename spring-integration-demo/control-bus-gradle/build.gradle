@@ -14,10 +14,6 @@ configurations {
 	}
 }
 
-repositories {
-	mavenCentral()
-}
-
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-integration'
 	compileOnly 'org.projectlombok:lombok'
@@ -32,3 +28,5 @@ test {
 	useJUnitPlatform()
 	testLogging.showStandardStreams = true
 }
+
+defaultTasks 'clean', 'compileTest'

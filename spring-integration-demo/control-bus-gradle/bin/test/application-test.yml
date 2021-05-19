@@ -1,1 +1,4 @@
-logging.config=classpath:logback-test1.xml
+logging:
+  level:
+    org:
+      springframework: OFF
