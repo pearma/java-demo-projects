@@ -20,3 +20,12 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'clean package'
+- task: GitHubRelease@1
+  inputs:
+    gitHubConnection: 'github package'
+    repositoryName: 'pearma/java-demo-projects'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'gitTag'
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'
