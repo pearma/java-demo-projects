@@ -26,6 +26,7 @@ steps:
     repositoryName: 'pearma/java-demo-projects'
     action: 'create'
     target: '$(Build.SourceVersion)'
-    tagSource: 'gitTag'
+    tagSource: 'userSpecifiedTag'
+    tag: 'release-v1.0'
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
