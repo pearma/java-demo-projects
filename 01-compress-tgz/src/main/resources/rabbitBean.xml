@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:int="http://www.springframework.org/schema/integration"
+xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+xmlns:int-amqp="http://www.springframework.org/schema/integration/amqp"
+xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+xsi:schemaLocation="
+  http://www.springframework.org/schema/beans
+  https://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/integration
+  https://www.springframework.org/schema/integration/spring-integration.xsd
+  http://www.springframework.org/schema/rabbit
+  https://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+  http://www.springframework.org/schema/integration/amqp
+  https://www.springframework.org/schema/integration/amqp/spring-integration-amqp.xsd
+  http://www.springframework.org/schema/integration/stream 
+  https://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+  ">
+  <!-- RabbitMQ Connection Factory -->
+  <rabbit:connection-factory id="connectionFactory"
+                             addresses= "192.168.199.3:2223"
+                             username=  "guest"
+                             password=  "guest" />
+  <rabbit:template id="amqpTemplate" connection-factory="connectionFactory" />
+  
+  <rabbit:admin connection-factory="connectionFactory" />
+
+	<rabbit:queue name="sample" />
+
+	<rabbit:direct-exchange name="si.test.exchange">
+		<rabbit:bindings>
+			<rabbit:binding queue="sample" key="hell" />
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
+  
+  <!-- CHANNEL -->
+	<int:channel id="fromRabbit"/>
+  <int:channel id="toRabbit" />
+
+
+
+  <int-amqp:outbound-channel-adapter channel="toRabbit" 
+    amqp-template="amqpTemplate" exchange-name="si.test.exchange"
+		routing-key="job" />
+
+
+  <int-amqp:inbound-gateway id="inboundGateWay"
+                            request-channel="fromRabbit"
+                            queue-names="sample"
+                            connection-factory="connectionFactory"
+  />
+  <int:service-activator input-channel="fromRabbit" ref="welcomeEndpoint" method="get" output-channel="toRabbit"/>
+
+    <!--
+      <int:service-activator input-channel="fromRabbit" ref="welcomeEndpoint" method="get" output-channel="toRabbit" />
+  <int:transformer input-channel="fromRabbit" output-channel="consoleOut" expression="'Received: ' + payload" />
+  <int-amqp:inbound-channel-adapter  channel="fromRabbit"
+		queue-names="sample" connection-factory="connectionFactory" />
+    -->
+    
+
+
+  <int-stream:stdout-channel-adapter id="consoleOut"
+		append-newline="true" />
+</beans>
