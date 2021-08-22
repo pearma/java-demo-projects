@@ -1,6 +1,6 @@
 功能说明：
-1. 本代码演示了2个功能。
-  1.1 借助spring integration ，实现了http get功能
+1. 本代码演示了2个功能。  
+  1.1 借助spring integration ，实现了http get功能  
   1.2 实现了对大文件的压缩打包功能
 
 
