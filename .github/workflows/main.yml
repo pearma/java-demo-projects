@@ -1,10 +1,7 @@
 name: Java CI with Maven
 
-on:
-  push:
-    branches: [ $default-branch ]
-  pull_request:
-    branches: [ $default-branch ]
+on:[push]
+
 
 jobs:
   build:
@@ -19,4 +16,9 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
     - name: Build with Maven
-      run: mvn -B package --file 01-compress-tgz/pom.xml
+    - run: mvn -B package --file 01-compress-tgz/pom.xml
+    - run: mkdir staging && cp target/*.jar staging
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Package
+        path: staging
