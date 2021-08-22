@@ -20,7 +20,7 @@ jobs:
         run: mkdir staging && cp 01-compress-tgz/target/*.jar staging
 
       - name: save to artifact
-      - uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v2
         with:
           name: Package
           path: staging
@@ -31,7 +31,7 @@ jobs:
           registry: docker.pkg.github.com
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - name: Build container image
         uses: docker/build-push-action@v2
         with:
