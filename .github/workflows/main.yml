@@ -12,7 +12,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - run: mvn --batch-mode --file 01-compress-tgz/pom.xml
+      - run: mvn --batch-mode --file 01-compress-tgz/pom.xml clean package
       - run: mkdir staging && cp target/*.jar staging
       - uses: actions/upload-artifact@v2
         with:
