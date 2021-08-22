@@ -37,6 +37,7 @@ jobs:
       - name: Build container image
         uses: docker/build-push-action@v2
         with:
+          context: 01-compress-tgz/
           push: true
           tags: |
             docker.pkg.github.com/${{ github.repository }}/octo-image:${{ github.sha }}
