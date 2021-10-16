@@ -1,0 +1,2 @@
+type: configmap
+kind: yaml
