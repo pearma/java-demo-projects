@@ -2,9 +2,11 @@ package com.pearma.vuebackenddemo.controller;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +36,18 @@ public class QueryController {
     @Autowired
     private QueryService qs;
 
+    @PostMapping(value="/redo",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void redo(@RequestBody List<SystemInfoDTO> systemInfoDto)
+    {
+        if(systemInfoDto != null)
+        {
+            log.info("size of incoming request is {}",systemInfoDto.size());
+            systemInfoDto.forEach(x->log.info(x.toString()));
+        }
+            
+        else
+            log.info("null request ");
+    }
     @GetMapping("/sys")
     public List<SystemInfoDTO> querySystem() {
         log.info("system info query triggered!");
@@ -78,7 +92,7 @@ public class QueryController {
     }
 
     @GetMapping("/file")
-    public void writeFile() {
+    public String writeFile() {
         byte[] a = new byte[4096];
 
         try {
@@ -98,6 +112,7 @@ public class QueryController {
 
             e.printStackTrace();
         }
+        return "Baeldung";
 
     }
 }
